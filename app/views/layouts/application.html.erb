@@ -9,6 +9,9 @@
   </head>
 
   <body>
+    <% unless session[:jwt].blank? %>
+      <%= button_to 'Logout', :logout, :method => :delete %><br>
+    <% end %>
     <%= yield %>
   </body>
 </html>

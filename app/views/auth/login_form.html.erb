@@ -1,0 +1,5 @@
+<%= form_for :user, :method => :post, :url => :login  do |user| %>
+  Email: <%= user.text_field :email %>
+  Password: <%= user.password_field :password %>
+  <%= user.submit %>
+<% end %>
