@@ -6,11 +6,13 @@ Rails.application.routes.draw do
   delete '/logout', :to => 'auth#logout'
 
   resources :course_modules do
-    resources :coursework do
+    resources :courseworks do
       nested do
         scope 'chatbot' do
           get '/', :to => 'chatbot#index'
           get '/find_answer', :to => 'chatbot#find_answer'
+          get '/greet', :to => 'chatbot#greet'
+          get '/new_question', :to => 'chatbot#new_question'
           resources :faq
         end
       end

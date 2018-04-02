@@ -1,8 +1,14 @@
-<div data-controller="chatbot">
-  <div data-target="chatbot.conversation"></div><br>
+<div 
+  data-controller="chatbot"
+  data-chatbot-course-module-id="<%= params[:course_module_id] %>"
+  data-chatbot-coursework-id="<%= params[:coursework_id] %>"
+  data-chatbot-lecturer-id="<%= @lecturer_id %>"
+>
+  <div data-target="chatbot.conversation"></div>
+  <br>
   <b>Question: </b>
   <form data-action="submit->chatbot#ask">
     <input data-target="chatbot.question" />
-    <input type="submit">
+    <input type="submit" value="Ask!">
   </form>
 </div>
