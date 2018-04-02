@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(:jwt => session[:jwt])
   end
 
+  def restrict_to_lecturer(lecturer_id = nil)
+    if lecturer_id.blank?
+      redirect_to :back unless current_user.lecturer?
+    else
+      redirect_to :back unless current_user.lecturer_id == lecturer_id
+    end
+  end
+
   private
     def refresh_token
       session[:jwt] = Auth.new.verify_token(session[:jwt])
