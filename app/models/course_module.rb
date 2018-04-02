@@ -1,4 +1,6 @@
 class CourseModule < ApplicationRecord
+  has_many :courseworks
+
   validates :name, :uniqueness => true
   validates :lecturer_id, :presence => true, :allow_nil => false
 

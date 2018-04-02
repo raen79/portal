@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   post '/login', :to => 'auth#login'
   delete '/logout', :to => 'auth#logout'
 
-  resources :course_modules do
-    resources :courseworks do
+  resources :course_modules, :except => :show do
+    resources :courseworks, :except => :show do
       nested do
-        scope 'chatbot' do
+        scope 'chatbot', :as => 'chatbot' do
           get '/', :to => 'chatbot#index'
           get '/find_answer', :to => 'chatbot#find_answer'
           get '/greet', :to => 'chatbot#greet'

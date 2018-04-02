@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @course_module.name %> Coursework</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courseworks.each do |coursework| %>
+      <tr>
+        <td><%= coursework.name %></td>
+        <td><%= link_to 'Talk With Chatbot', course_module_coursework_chatbot_path(:course_module_id => @course_module.id, :coursework_id => coursework.id) %></td>
+        <td><%= link_to 'Edit', edit_course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id) %></td>
+        <td><%= button_to 'Destroy', course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Coursework', new_course_module_coursework_path %>

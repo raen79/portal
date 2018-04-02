@@ -14,9 +14,9 @@
     <% @course_modules.each do |course_module| %>
       <tr>
         <td><%= course_module.name %></td>
-        <td><%= link_to 'Show', course_module %></td>
+        <td><%= link_to 'View Courseworks', course_module_courseworks_path(course_module) %></td>
         <td><%= link_to 'Edit', edit_course_module_path(course_module) %></td>
-        <td><%= link_to 'Destroy', course_module, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Destroy', course_module, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
