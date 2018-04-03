@@ -5,6 +5,11 @@ class CourseModule < ApplicationRecord
   validates :lecturer_id, :presence => true, :allow_nil => false
 
   def lecturer
-    User.find_by(:lecturer_id => lecturer_id)
+    @lecturer ||= User.find_by(:lecturer_id => lecturer_id)
+  end
+
+  def lecturer=(lecturer)
+    @lecturer = lecturer
+    @lecturer_id = lecturer.lecturer_id
   end
 end

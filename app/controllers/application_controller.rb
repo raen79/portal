@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
     end
 
     def set_auth_header
-      Thread.current['active.resource.currentthread.headers'] = session[:jwt]
+      Thread.current['active.resource.currentthread.headers'] = {
+        'Authorization' => session[:jwt]
+      }
     end
 end

@@ -10,14 +10,16 @@ class CourseModulesController < ApplicationController
   end
 
   def new
-    @course_module = CourseModule.new(:lecturer_id => current_user.lecturer_id)
+    @course_module = CourseModule.new
+    @course_module.lecturer = current_user.lecturer_id
   end
 
   def edit
   end
 
   def create
-    @course_module = CourseModule.new(course_module_params.merge(:lecturer_id => current_user.lecturer_id))
+    @course_module = CourseModule.new(course_module_params)
+    @course_module.lecturer = current_user.lecturer_id
 
     if @course_module.save
       redirect_to course_modules_url, notice: 'Course module was successfully created.'

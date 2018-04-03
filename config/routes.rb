@@ -13,7 +13,7 @@ Rails.application.routes.draw do
           get '/find_answer', :to => 'chatbot#find_answer'
           get '/greet', :to => 'chatbot#greet'
           get '/new_question', :to => 'chatbot#new_question'
-          resources :faq
+          resources :faqs, :except => :show
         end
       end
     end

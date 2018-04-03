@@ -1,0 +1,5 @@
+<h1>Editing Faq</h1>
+
+<%= render 'form', :faq => @faq, :action => :update %>
+
+<%= link_to 'Back', course_module_coursework_chatbot_faqs_path(:course_module_id => @course_module.id, :coursework_id => @coursework.id) %>

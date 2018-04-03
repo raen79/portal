@@ -32,7 +32,7 @@ class User
   end
 
   def course_modules
-    CourseModule.where(:lecturer_id => lecturer_id)
+    @course_modules ||= CourseModule.where(:lecturer_id => lecturer_id)
   end
 
   class << self

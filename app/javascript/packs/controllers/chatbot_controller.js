@@ -1,5 +1,4 @@
 import { Controller } from 'stimulus'
-import * as AppendElement from '../html_elements.js'
 
 const host = window.location.origin;
 

@@ -20,7 +20,7 @@ class CourseworksController < ApplicationController
     @coursework = @course_module.courseworks.new(coursework_params)
 
     if @coursework.save
-      redirect_to course_module_courseworks_path, notice: 'Coursework was successfully created.'
+      redirect_to course_module_courseworks_url(:course_module_id => @course_module.id), notice: 'Coursework was successfully created.'
     else
       render :new
     end
@@ -28,7 +28,7 @@ class CourseworksController < ApplicationController
 
   def update
     if @coursework.update(coursework_params)
-      redirect_to course_module_courseworks_path, notice: 'Coursework was successfully updated.'
+      redirect_to course_module_courseworks_url(:course_module_id => @course_module.id), notice: 'Coursework was successfully updated.'
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class CourseworksController < ApplicationController
 
   def destroy
     @coursework.destroy
-    redirect_to course_module_courseworks_path, notice: 'Coursework was successfully destroyed.'
+    redirect_to course_module_courseworks_url(:course_module_id => @course_module.id), notice: 'Coursework was successfully destroyed.'
   end
 
   private
