@@ -1,5 +1,4 @@
 class Faqs
-
   def initialize(coursework:)
     @coursework = coursework
     @course_module = coursework.course_module

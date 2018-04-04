@@ -7,6 +7,7 @@ class CourseworksController < ApplicationController
 
   def index
     @courseworks = @course_module.courseworks
+    @current_user = current_user
   end
 
   def new

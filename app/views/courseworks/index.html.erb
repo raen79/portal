@@ -15,8 +15,11 @@
       <tr>
         <td><%= coursework.name %></td>
         <td><%= link_to 'Talk With Chatbot', course_module_coursework_chatbot_path(:course_module_id => @course_module.id, :coursework_id => coursework.id) %></td>
-        <td><%= link_to 'Edit', edit_course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id) %></td>
-        <td><%= button_to 'Destroy', course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if @current_user.lecturer_id == @course_module.lecturer.lecturer_id %>
+          <td><%= link_to 'Manage FAQs', course_module_coursework_chatbot_faqs_path(:course_module_id => @course_module.id, :coursework_id => coursework.id) %></td>
+          <td><%= link_to 'Edit', edit_course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id) %></td>
+          <td><%= button_to 'Destroy', course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +27,10 @@
 
 <br>
 
-<%= link_to 'New Coursework', new_course_module_coursework_path %>
+<% if @current_user.lecturer_id == @course_module.lecturer.lecturer_id %>
+  <%= link_to 'New Coursework', new_course_module_coursework_path %>
+<% end %>
+
+<br><br>
+
+<%= link_to 'Back', course_modules_path %>
