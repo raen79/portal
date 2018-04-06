@@ -1,31 +1,90 @@
-<p id="notice"><%= notice %></p>
+<div
+  id="course_modules_index"
+  data-controller="course-modules"
+  data-course-modules-notice="<%= notice %>"
+>
+  <h2>Course Modules</h2>
 
-<h1>Course Modules</h1>
+  <table class="highlight">
+    <tbody>
+      <% @course_modules.each do |course_module| %>
+        <tr>
+          <%= form_for course_module do |form| %>
+            <input 
+              type="hidden"
+              data-target="course-modules.error"
+              data-course-module-id="<%= course_module.id %>"
+              data-error-message="<%= course_module.errors.full_messages[0] %>"
+            />
+            <td>
+              <h4>
+                <%= link_to course_module.name, course_module_courseworks_path(course_module) %>
+              </h4>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+              <div class="input-field hide" data-target="course-modules.name" data-course-module-id="<%= course_module.id %>">
+                <%= form.label :name %>
+                <%= form.text_field :name, :id => :course_module_name %>
+              </div>
+            </td>
+            
+            <% if @current_user.lecturer_id == course_module.lecturer.lecturer_id %>
+              <td class="right-align">
+                <a
+                  class="btn-floating btn-large waves-effect waves-light yellow"
+                  data-action="click->course-modules#displayFormEvent"
+                  data-course-module-id="<%= course_module.id %>"
+                >
+                  <i class="material-icons">edit</i>
+                </a>
 
-  <tbody>
-    <% @course_modules.each do |course_module| %>
-      <tr>
-        <td><%= course_module.name %></td>
-        <td><%= link_to 'Coursework', course_module_courseworks_path(course_module) %></td>
-        <% if @current_user.lecturer_id == course_module.lecturer.lecturer_id %>
-          <td><%= link_to 'Edit', edit_course_module_path(course_module) %></td>
-          <td><%= button_to 'Destroy', course_module, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                <%=
+                  link_to(
+                    raw('<i class="material-icons">delete</i>'),
+                    course_module,
+                    :method => :delete,
+                    :data => {
+                      :confirm => 'Are you sure?',
+                    },
+                    :class => 'btn-floating btn-large waves-effect waves-light red'
+                  )
+                %>
 
-<br>
+                <%=
+                  form.submit 'Update!',
+                  :class => 'btn waves-effect waves-light yellow hide',
+                  :data => {
+                    :target => 'course-modules.updateButton',
+                    :'course-module-id' => course_module.id
+                  }
+                %>
 
-<% if @current_user.lecturer? %>
-  <%= link_to 'New Course Module', new_course_module_path %>
-<% end %>
+                <a
+                  class="btn waves-effect waves-light red hide"
+                  data-target="course-modules.cancelButton"
+                  data-course-module-id="<%= course_module.id %>"
+                  data-action="click->course-modules#hideForm"
+                >
+                  Cancel
+                </a>
+              </td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <% if @current_user.lecturer? %>
+    <div class="fixed-action-btn">
+      <%= 
+        link_to(
+          raw('<i class="material-icons">add</i>'),
+          new_course_module_path,
+          :class => 'create-btn btn-floating btn-large waves-effect waves-light'
+        )
+      %>
+    </div>
+  <% end %>
+</div>

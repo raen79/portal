@@ -10,6 +10,6 @@ class CourseModule < ApplicationRecord
 
   def lecturer=(lecturer)
     @lecturer = lecturer
-    @lecturer_id = lecturer.lecturer_id
+    self.lecturer_id = lecturer.lecturer_id
   end
 end

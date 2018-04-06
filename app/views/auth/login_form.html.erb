@@ -1,5 +1,13 @@
 <%= form_for :user, :method => :post, :url => :login  do |user| %>
-  Email: <%= user.text_field :email %>
-  Password: <%= user.password_field :password %>
-  <%= user.submit %>
+  <div class="input-field">
+    <%= user.text_field :email %>
+    <label>Email Address</label>
+  </div>
+
+  <div class="input-field">
+    <%= user.password_field :password %>
+    <label>Password</label>
+  </div>
+
+  <%= user.submit :class => 'waves-effect waves-light btn' %>
 <% end %>

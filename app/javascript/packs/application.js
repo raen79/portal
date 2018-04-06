@@ -9,7 +9,15 @@
 
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
+import { } from "materialize-css"
 
-const application = Application.start()
-const context = require.context("./controllers", true, /\.js$/)
-application.load(definitionsFromContext(context))
+
+const Turbolinks = require("turbolinks");
+Turbolinks.start();
+
+const RailsUJS = require("rails-ujs");
+RailsUJS.start();
+
+const application = Application.start();
+const context = require.context("./controllers", true, /\.js$/);
+application.load(definitionsFromContext(context));

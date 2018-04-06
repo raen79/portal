@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Portal</title>
+    <title>Automated Marking and Tutoring System</title>
     <%= csrf_meta_tags %>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
-    <% unless session[:jwt].blank? %>
-      <%= button_to 'Logout', :logout, :method => :delete %><br>
-    <% end %>
-    <%= yield %>
+    <nav>
+      <div class="nav-wrapper container">
+        <%= link_to 'Marking and Tutoring System', :course_modules, :class => 'brand-logo' %>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <% unless session[:jwt].blank? %>
+            <li><%= link_to 'Logout', :logout, :method => :delete %></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
