@@ -1,0 +1,42 @@
+<table class="highlight">
+  <tbody>
+    <% course_modules.each do |course_module| %>
+      <tr>
+        <%= form_for course_module do |form| %>
+          <td>
+            <h4>
+              <%= link_to course_module.name, course_module_courseworks_path(course_module) %>
+            </h4>
+
+            <%= render 'edit_form_fields', :course_module => course_module, :form => form %>
+          </td>
+          
+          <% if current_user.lecturer_id == course_module.lecturer.lecturer_id %>
+            <td class="right-align">
+              <a
+                class="btn-floating btn-large waves-effect waves-light yellow"
+                data-action="click->course-modules#displayEditForm"
+                data-course-module-id="<%= course_module.id %>">
+                <i class="material-icons">edit</i>
+              </a>
+
+              <%=
+                link_to(
+                  raw('<i class="material-icons">delete</i>'),
+                  course_module,
+                  :method => :delete,
+                  :data => {
+                    :confirm => 'Are you sure?',
+                  },
+                  :class => 'btn-floating btn-large waves-effect waves-light red'
+                )
+              %>
+
+              <%= render 'edit_form_submission', :course_module => course_module, :form => form %>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

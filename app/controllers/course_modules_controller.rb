@@ -8,18 +8,20 @@ class CourseModulesController < ApplicationController
   def index
     @course_modules = current_user.course_modules.order(:name => :asc)
 
-    @course_module = CourseModule.new
-    @course_module.lecturer = current_user
+    @new_course_module = CourseModule.new
+    @new_course_module.lecturer = current_user
   end
 
   def create
-    @course_module = CourseModule.new(course_module_params)
-    @course_module.lecturer = current_user
+    @course_modules = current_user.course_modules.order(:name => :asc)
 
-    if @course_module.save
+    @new_course_module = CourseModule.new(course_module_params)
+    @new_course_module.lecturer = current_user
+
+    if @new_course_module.save
       redirect_to course_modules_url, notice: 'Course module was successfully created.'
     else
-      render :new
+      render :index
     end
   end
 
@@ -27,7 +29,20 @@ class CourseModulesController < ApplicationController
     if @course_module.update(course_module_params)
       redirect_to course_modules_url, notice: 'Course module was successfully updated.'
     else
-      render :edit
+      @course_modules = current_user.course_modules.order(:name => :asc).to_a
+      @course_modules.map! do |course_module|
+        if course_module.id == @course_module.id
+          @course_module.name = course_module.name
+          @course_module
+        else
+          course_module
+        end
+      end
+
+      @new_course_module = CourseModule.new(course_module_params)
+      @new_course_module.lecturer = current_user
+
+      render :index
     end
   end
 

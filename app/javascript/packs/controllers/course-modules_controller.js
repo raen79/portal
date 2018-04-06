@@ -1,88 +1,66 @@
 import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  static targets = ['error', 'updateButton', 'name', 'cancelButton'];
+  static targets = ['editError', 'newError', 'updateButton', 'name', 'modal'];
 
   initialize() {
     const notice = this.data.get("notice");
 
+    M.Modal.init(this.modalTarget);
+
     this.displayErrorMessage(notice);
-    this.initializeForms();
+    this.initializeEditForms();
+    this.displayErroneousNewForm();
   }
 
-  initializeForms() {
-    this.errorTargets.forEach(errorElement => {
-      this.displayErrorMessage(errorElement.dataset.errorMessage);
-
-      if (this.hasErrorMessage(errorElement)) {
-        this.displayForm(errorElement);
-      }
+  initializeEditForms() {
+    this.editErrorTargets.forEach(errorElement => {
+      setTimeout(() => this.toggleEditForm(errorElement), 1);
     });
   }
 
-  displayForm(formElement) {
-    const courseModuleId = this.getCourseModuleId(formElement);
-    const form = this.getForm(courseModuleId);
-
-    form.updateButton.siblings.forEach(element => element.classList.add('hide'));
-    form.updateButton.parentElement.classList.remove('hide');
-    form.cancelButton.classList.remove('hide');
-
-    form.nameField.siblings.forEach(element => element.classList.add('hide'))
-    form.nameField.classList.remove('hide');
+  displayErroneousNewForm() {
+    console.log(this.newErrorTargets);
+    if (this.newErrorTargets.length > 0) {
+      M.Modal.getInstance(this.modalTarget).open();
+    }
   }
 
-  hideForm(event) {
-    const formElement = event.target;
-
+  toggleEditForm(formElement) {
     const courseModuleId = this.getCourseModuleId(formElement);
-    const form = this.getForm(courseModuleId);
+    const form = this.getEditForm(courseModuleId);
 
-    form.updateButton.siblings.forEach(element => element.classList.remove('hide'));
-    form.updateButton.parentElement.classList.add('hide');
-    form.cancelButton.classList.add('hide');
-
-    form.nameField.siblings.forEach(element => element.classList.remove('hide'))
-    form.nameField.classList.add('hide');
+    form.updateButton.siblings.forEach(element => element.classList.toggle('hide'));
+    form.nameField.siblings.forEach(element => element.classList.toggle('hide'));
   }
 
-  displayFormEvent(event) {
-    this.displayForm(event.target.parentElement);
+  hideEditForm(event) {
+    this.toggleEditForm(event.target);
+  }
+
+  displayEditForm(event) {
+    this.toggleEditForm(event.target.parentElement);
   }
 
   displayErrorMessage(errorMessage) {
     if (errorMessage != '') {
-      // M.toast({ html: errorMessage });
-      console.log(errorMessage);
+      M.toast({ html: errorMessage });
     }
   }
 
-  getForm(courseModuleId) {
+  getEditForm(courseModuleId) {
     const siblings = element => Array.from(element.parentElement.children);
     const findByModuleId = targets => {
       return targets.find(element => this.getCourseModuleId(element) == courseModuleId);
     } 
 
     const updateButton = findByModuleId(this.updateButtonTargets);
-    const cancelButton = findByModuleId(this.cancelButtonTargets);
     const nameField = findByModuleId(this.nameTargets);
     
-    
     updateButton.siblings = siblings(updateButton.parentElement);
-    cancelButton.siblings = siblings(cancelButton);
     nameField.siblings = siblings(nameField);
 
-    return { updateButton: updateButton, nameField: nameField, cancelButton: cancelButton };
-  }
-
-  hasErrorMessage(formElement) {
-    const courseModuleId = this.getCourseModuleId(formElement);
-
-    const errorElement = this.errorTargets.find(element => {
-      return this.getCourseModuleId(element) == courseModuleId;
-    });
-
-    return errorElement.dataset.errorMessage != '';
+    return { updateButton: updateButton, nameField: nameField };
   }
   
   getCourseModuleId(element) {

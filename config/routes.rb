@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   post '/login', :to => 'auth#login'
   delete '/logout', :to => 'auth#logout'
 
-  resources :course_modules, :except => :show do
+  resources :course_modules, :except => [:show, :edit, :new] do
+    get '/', :to  => 'course_modules#index'
     resources :courseworks, :except => :show do
       nested do
         scope 'chatbot', :as => 'chatbot' do

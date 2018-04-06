@@ -1,7 +1,7 @@
 class CourseModule < ApplicationRecord
   has_many :courseworks
 
-  validates :name, :uniqueness => true
+  validates :name, :uniqueness => true, :presence => true, :allow_nil => false
   validates :lecturer_id, :presence => true, :allow_nil => false
 
   def lecturer
