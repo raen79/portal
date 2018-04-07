@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  static targets = ['editError', 'newError', 'updateButton', 'name', 'modal'];
+  static targets = ['editError', 'newError', 'updateButton', 'name', 'modal', 'editForm'];
 
   initialize() {
     const notice = this.data.get("notice");
@@ -20,10 +20,14 @@ export default class extends Controller {
   }
 
   displayErroneousNewForm() {
-    console.log(this.newErrorTargets);
     if (this.newErrorTargets.length > 0) {
       M.Modal.getInstance(this.modalTarget).open();
     }
+  }
+
+  submitEditForm(event) {
+    const courseModuleId = this.getCourseModuleId(event.target);
+    this.editFormTargets.find(element => element.dataset.courseModuleId == courseModuleId).submit();
   }
 
   toggleEditForm(formElement) {

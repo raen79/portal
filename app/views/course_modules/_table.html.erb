@@ -2,7 +2,15 @@
   <tbody>
     <% course_modules.each do |course_module| %>
       <tr>
-        <%= form_for course_module do |form| %>
+        <%=
+          form_for(
+            course_module,
+            :data => {
+              :target => 'course-modules.editForm',
+              'course-module-id' => course_module.id
+            }
+          ) do |form|
+        %>
           <td>
             <h4>
               <%= link_to course_module.name, course_module_courseworks_path(course_module) %>

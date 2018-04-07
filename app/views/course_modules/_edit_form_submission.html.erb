@@ -3,7 +3,8 @@
   :class => 'btn waves-effect waves-light yellow hide',
   :data => {
     :target => 'course-modules.updateButton',
-    :'course-module-id' => course_module.id
+    :'course-module-id' => course_module.id,
+    :action => 'click->course-modules#submitEditForm'
   }
 %>
 
