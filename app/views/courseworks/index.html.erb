@@ -1,36 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div
+  id="courseworks_index"
+  data-controller="table"
+  data-table-notice="<%= notice %>">
+    <h2>Coursework</h2>
 
-<h1><%= @course_module.name %> Coursework</h1>
+    <%= render 'table', :courseworks => @courseworks, :current_user => @current_user %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <br>
 
-  <tbody>
-    <% @courseworks.each do |coursework| %>
-      <tr>
-        <td><%= coursework.name %></td>
-        <td><%= link_to 'Talk With Chatbot', course_module_coursework_chatbot_path(:course_module_id => @course_module.id, :coursework_id => coursework.id) %></td>
-        <% if @current_user.lecturer_id == @course_module.lecturer.lecturer_id %>
-          <td><%= link_to 'Manage FAQs', course_module_coursework_chatbot_faqs_path(:course_module_id => @course_module.id, :coursework_id => coursework.id) %></td>
-          <td><%= link_to 'Edit', edit_course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id) %></td>
-          <td><%= button_to 'Destroy', course_module_coursework_path(:course_module_id => @course_module.id, :id => coursework.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+    <% if @current_user.lecturer_id == @course_module.lecturer.lecturer_id %>
+      <div class="fixed-action-btn">
+        <%= 
+          link_to(
+            raw('<i class="material-icons">add</i>'),
+            '#new-modal',
+            :class => 'create-btn btn-floating btn-large waves-effect waves-light modal-trigger',
+          )
+        %>
+      </div>
+
+      <%= render 'form_modal', :modal_id => 'new-modal', :new_coursework => @new_coursework %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% if @current_user.lecturer_id == @course_module.lecturer.lecturer_id %>
-  <%= link_to 'New Coursework', new_course_module_coursework_path %>
-<% end %>
-
-<br><br>
-
-<%= link_to 'Back', course_modules_path %>
+</div>

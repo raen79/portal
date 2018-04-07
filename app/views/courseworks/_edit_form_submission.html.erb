@@ -1,0 +1,14 @@
+<%=
+  form.submit 'Update!',
+  :class => 'btn waves-effect waves-light yellow hide',
+  :data => {
+    :target => 'table.updateButton',
+    'object-id' => coursework.id,
+    :action => 'click->table#submitEditForm'
+  }
+%>
+
+<a
+  class="btn waves-effect waves-light red hide"
+  data-object-id="<%= coursework.id %>"
+  data-action="click->table#hideEditForm">Cancel</a>

@@ -6,24 +6,20 @@ class CourseworksController < ApplicationController
   end
 
   def index
-    @courseworks = @course_module.courseworks
+    @courseworks = @course_module.courseworks.order(:name => :asc)
     @current_user = current_user
-  end
 
-  def new
-    @coursework = @course_module.courseworks.new
-  end
-
-  def edit
+    @new_coursework = @course_module.courseworks.new
   end
 
   def create
-    @coursework = @course_module.courseworks.new(coursework_params)
+    @courseworks = @course_module.courseworks.order(:name => :asc)
+    @new_coursework = @course_module.courseworks.new(coursework_params)
 
-    if @coursework.save
+    if @new_coursework.save
       redirect_to course_module_courseworks_url(:course_module_id => @course_module.id), notice: 'Coursework was successfully created.'
     else
-      render :new
+      render :index
     end
   end
 
@@ -31,7 +27,19 @@ class CourseworksController < ApplicationController
     if @coursework.update(coursework_params)
       redirect_to course_module_courseworks_url(:course_module_id => @course_module.id), notice: 'Coursework was successfully updated.'
     else
-      render :edit
+      @new_coursework = @course_module.courseworks.new(coursework_params)
+      
+      @courseworks = @course_module.courseworks.order(:name => :asc).to_a
+      @courseworks.map! do |coursework|
+        if coursework.id == @coursework.id
+          @coursework.name = coursework.name
+          @coursework
+        else
+          coursework
+        end
+      end
+
+      render :index
     end
   end
 

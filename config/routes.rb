@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   resources :course_modules, :except => [:show, :edit, :new] do
     get '/', :to  => 'course_modules#index'
-    resources :courseworks, :except => :show do
+    
+    resources :courseworks, :except => [:show, :edit, :new] do
+      get '/', :to => 'courseworks#index'
+
       nested do
         scope 'chatbot', :as => 'chatbot' do
           get '/', :to => 'chatbot#index'

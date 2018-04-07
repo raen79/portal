@@ -1,0 +1,72 @@
+<table class="highlight">
+  <tbody>
+    <% courseworks.each do |coursework| %>
+      <tr>
+        <%=
+          form_for(
+            coursework,
+            :method => :put,
+            :url => course_module_coursework_path(:course_module_id => coursework.course_module.id, :coursework_id => coursework.id),
+            :data => {
+              :target => 'table.editForm',
+              'object-id' => coursework.id
+            }
+          ) do |form|
+        %>
+          <td>
+            <h4><%= coursework.name %></h4>
+            <%= render 'edit_form_fields', :coursework => coursework, :form => form %>
+          </td>
+
+          <td class="right-align">
+            <%=
+              link_to(
+                'Ask Questions',
+                course_module_coursework_chatbot_path(:course_module_id => coursework.course_module.id, :coursework_id => coursework.id),
+                :class => 'btn waves-effect blue waves-light'
+              )
+            %>
+
+            <%= link_to('Submit Solution', 'javascript::', :class => 'btn waves-effect blue waves-light') %>
+            
+            <% if current_user.lecturer_id == coursework.lecturer.lecturer_id %>
+              <%=
+                link_to(
+                  'Manage FAQs',
+                  course_module_coursework_chatbot_faqs_path(:course_module_id => coursework.course_module.id, :coursework_id => coursework.id),
+                  :class => 'btn waves-effect yellow darken-1 waves-light'
+                )
+              %>
+
+              <%=
+                link_to(
+                  raw('<i class="material-icons">edit</i>'),
+                  'javascript::',
+                  :class => 'btn-floating btn-large waves-effect waves-light yellow',
+                  :data => {
+                    :action => 'click->table#displayEditForm',
+                    'object-id' => coursework.id
+                  }
+                )
+              %>
+
+              <%=
+                link_to(
+                  raw('<i class="material-icons">delete</i>'),
+                  course_module_coursework_path(:course_module_id => coursework.course_module.id, :coursework_id => coursework.id),
+                  :method => :delete,
+                  :data => {
+                    :confirm => 'Are you sure?',
+                  },
+                  :class => 'btn-floating btn-large waves-effect waves-light red'
+                )
+              %>
+
+              <%= render 'edit_form_submission', :coursework => coursework, :form => form %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

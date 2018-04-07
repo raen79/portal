@@ -11,10 +11,6 @@ import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 import { } from "materialize-css"
 
-
-const Turbolinks = require("turbolinks");
-Turbolinks.start();
-
 const RailsUJS = require("rails-ujs");
 RailsUJS.start();
 

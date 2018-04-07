@@ -1,0 +1,15 @@
+<% if coursework.errors.any? %>
+  <ul data-target="table.editError" data-object-id="<%= coursework.id %>" class="hide">
+    <% coursework.errors.full_messages.each do |message| %>
+      <li class="error-message"><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div
+  class="input-field hide"
+  data-target="table.name"
+  data-object-id="<%= coursework.id %>">
+    <%= form.label :name %>
+    <%= form.text_field :name, :id => "coursework_name_#{coursework.id}" %>
+</div>

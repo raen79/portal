@@ -7,7 +7,7 @@ export default class extends Controller {
 
   initialize() {
     this.base_url = `${host}/course_modules/${this.course_module_id}/courseworks/${this.coursework_id}/chatbot`;
-    this.appendPartial(this.conversationTarget, '/greet');
+    this.replaceWithPartial(this.conversationTarget, '/greet');
   }
   
   ask(event) {
@@ -37,11 +37,17 @@ export default class extends Controller {
 
   appendPartial(target, url) {
     fetch(this.base_url + url, { credentials: 'same-origin' })
-      .then((response) => response.text())
-      .then((html) => {
+      .then(response => response.text())
+      .then(html => {
         const element = document.createElement('div');
         element.innerHTML = html;
         target.appendChild(element);
       });
+  }
+
+  replaceWithPartial(target, url) {
+    fetch(this.base_url + url, { credentials: 'same-origin' })
+      .then(response => response.text())
+      .then(html => target.innerHTML = html);
   }
 }
