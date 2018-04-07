@@ -26,13 +26,13 @@ export default class extends Controller {
   }
 
   submitEditForm(event) {
-    const courseModuleId = this.getCourseModuleId(event.target);
-    this.editFormTargets.find(element => element.dataset.courseModuleId == courseModuleId).submit();
+    const objectId = this.getObjectId(event.target);
+    this.editFormTargets.find(element => element.dataset.objectId == objectId).submit();
   }
 
   toggleEditForm(formElement) {
-    const courseModuleId = this.getCourseModuleId(formElement);
-    const form = this.getEditForm(courseModuleId);
+    const objectId = this.getObjectId(formElement);
+    const form = this.getEditForm(objectId);
 
     form.updateButton.siblings.forEach(element => element.classList.toggle('hide'));
     form.nameField.siblings.forEach(element => element.classList.toggle('hide'));
@@ -52,10 +52,10 @@ export default class extends Controller {
     }
   }
 
-  getEditForm(courseModuleId) {
+  getEditForm(objectId) {
     const siblings = element => Array.from(element.parentElement.children);
     const findByModuleId = targets => {
-      return targets.find(element => this.getCourseModuleId(element) == courseModuleId);
+      return targets.find(element => this.getObjectId(element) == objectId);
     } 
 
     const updateButton = findByModuleId(this.updateButtonTargets);
@@ -67,7 +67,7 @@ export default class extends Controller {
     return { updateButton: updateButton, nameField: nameField };
   }
   
-  getCourseModuleId(element) {
-    return element.dataset.courseModuleId;
+  getObjectId(element) {
+    return element.dataset.objectId;
   }
 }
