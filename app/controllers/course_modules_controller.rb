@@ -1,4 +1,5 @@
 class CourseModulesController < ApplicationController
+  before_action :set_breadcrumbs
   before_action :set_course_module, :only => [:edit, :update, :destroy]
   before_action :restrict_to_lecturer, :only => [:create]
   before_action :only => [:edit, :update, :destroy] do
@@ -54,6 +55,12 @@ class CourseModulesController < ApplicationController
   private
     def set_course_module
       @course_module = current_user.course_modules.find(params[:id])
+    end
+
+    def set_breadcrumbs
+      @breadcrumbs = [
+        { :name => 'Course Modules', :url => course_modules_path }
+      ]
     end
 
     def course_module_params

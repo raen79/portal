@@ -1,5 +1,5 @@
 class CourseworksController < ApplicationController
-  before_action :set_course_module
+  before_action :set_course_module, :set_breadcrumbs
   before_action :set_coursework, :only => [:edit, :update, :destroy]
   before_action :except => :index do
     restrict_to_lecturer(@course_module.lecturer.lecturer_id)
@@ -55,6 +55,13 @@ class CourseworksController < ApplicationController
 
     def set_coursework
       @coursework = @course_module.courseworks.find(params[:id])
+    end
+
+    def set_breadcrumbs
+      @breadcrumbs = [
+        { :name => 'Course Modules', :url => course_modules_path },
+        { :name => @course_module.name, :url => course_module_courseworks_path(:course_module_id => @course_module.id) }
+      ]
     end
 
     def coursework_params

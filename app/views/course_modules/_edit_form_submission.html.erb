@@ -1,6 +1,6 @@
 <%=
   form.submit 'Update!',
-  :class => 'btn waves-effect waves-light yellow hide',
+  :class => 'btn waves-effect waves-light yellow darken-1 hide',
   :data => {
     :target => 'table.updateButton',
     'object-id' => course_module.id,
@@ -9,6 +9,6 @@
 %>
 
 <a
-  class="btn waves-effect waves-light red hide"
+  class="btn waves-effect waves-light red lighten-1 hide"
   data-object-id="<%= course_module.id %>"
   data-action="click->table#hideEditForm">Cancel</a>

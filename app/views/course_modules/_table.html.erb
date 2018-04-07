@@ -22,7 +22,7 @@
           <% if current_user.lecturer_id == course_module.lecturer.lecturer_id %>
             <td class="right-align">
               <a
-                class="btn-floating btn-large waves-effect waves-light yellow"
+                class="btn-floating btn-large waves-effect waves-light yellow darken-1"
                 data-action="click->table#displayEditForm"
                 data-object-id="<%= course_module.id %>">
                   <i class="material-icons">edit</i>
@@ -36,7 +36,7 @@
                   :data => {
                     :confirm => 'Are you sure?',
                   },
-                  :class => 'btn-floating btn-large waves-effect waves-light red'
+                  :class => 'btn-floating btn-large waves-effect waves-light red lighten-1'
                 )
               %>
 

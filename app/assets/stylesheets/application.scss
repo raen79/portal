@@ -14,8 +14,13 @@
  *= require_self
  */
 
- @import 'materialize-css/sass/materialize';
+  @import 'materialize-css/sass/materialize';
 
- input.waves-button-input {
-   color: white;
- }
+  input.waves-button-input {
+    color: white;
+  }
+
+  .nav-content {
+    margin-left: 10px;
+    bottom: 10px;
+  }

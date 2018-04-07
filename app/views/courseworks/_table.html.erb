@@ -23,11 +23,11 @@
               link_to(
                 'Ask Questions',
                 course_module_coursework_chatbot_path(:course_module_id => coursework.course_module.id, :coursework_id => coursework.id),
-                :class => 'btn waves-effect blue waves-light'
+                :class => 'btn waves-effect blue lighten-1 waves-light'
               )
             %>
 
-            <%= link_to('Submit Solution', 'javascript::', :class => 'btn waves-effect blue waves-light') %>
+            <%= link_to('Submit Solution', 'javascript::', :class => 'btn waves-effect blue lighten-1 waves-light') %>
             
             <% if current_user.lecturer_id == coursework.lecturer.lecturer_id %>
               <%=
@@ -42,7 +42,7 @@
                 link_to(
                   raw('<i class="material-icons">edit</i>'),
                   'javascript::',
-                  :class => 'btn-floating btn-large waves-effect waves-light yellow',
+                  :class => 'btn-floating btn-large waves-effect waves-light yellow darken-1',
                   :data => {
                     :action => 'click->table#displayEditForm',
                     'object-id' => coursework.id
@@ -58,7 +58,7 @@
                   :data => {
                     :confirm => 'Are you sure?',
                   },
-                  :class => 'btn-floating btn-large waves-effect waves-light red'
+                  :class => 'btn-floating btn-large waves-effect waves-light red lighten-1'
                 )
               %>
 
