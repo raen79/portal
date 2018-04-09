@@ -15,9 +15,11 @@
       <div class="nav-wrapper container">
         <div class="row">
           <div class="col s12">
-            <%= link_to 'Marking and Tutoring System', :course_modules, :class => 'brand-logo' %>
+            <%= link_to 'Marking and Tutoring System', :course_modules, :class => 'brand-logo hide-on-med-and-down' %>
+            <%= link_to 'Marking & Tutoring', :course_modules, :class => 'brand-logo hide-on-small-only hide-on-large-only left' %>
+            <%= link_to 'M&T System', :course_modules, :class => 'brand-logo hide-on-med-and-up left' %>
 
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-mobile" class="right">
               <% unless session[:jwt].blank? %>
                 <li><%= link_to 'Logout', :logout, :method => :delete, :class => 'btn red darken-1' %></li>
               <% end %>
