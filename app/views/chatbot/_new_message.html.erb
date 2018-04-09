@@ -1,1 +1,18 @@
-<b><%= username %>:</b> <%= message %>
+<div class="row">
+  <% if username == 'Tutor Chatbot' %>
+    <div class="col s6 push-s6">
+  <% else %>
+    <div class="col s6">
+  <% end %>
+    <% if username == 'Tutor Chatbot' %>
+      <div class="card blue darken-1">
+    <% else %>
+      <div class="card green">
+    <% end %>
+      <div class="card-content white-text">
+        <span class="card-title"><%= username %></span>
+        <p><%= message %></p>
+      </div>
+    </div>
+  </div>
+</div>

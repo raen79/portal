@@ -1,5 +1,5 @@
 class ChatbotController < ApplicationController
-  before_action :set_course_module, :set_coursework
+  before_action :set_course_module, :set_coursework, :set_breadcrumbs
 
   def index
     @lecturer_id = @course_module.lecturer.id
@@ -31,6 +31,17 @@ class ChatbotController < ApplicationController
   private
     def set_course_module
       @course_module = CourseModule.find(params[:course_module_id])
+    end
+
+    def set_breadcrumbs
+      @breadcrumbs = [
+        { :name => 'Course Modules', :url => course_modules_path },
+        { :name => @course_module.name, :url => course_module_courseworks_path(:course_module_id => @course_module.id) },
+        {
+          :name => "#{@coursework.name} Chatbot",
+          :url => course_module_coursework_chatbot_path(:course_module_id => @course_module.id, :coursework_id => @coursework.id)
+        }
+      ]
     end
 
     def set_coursework

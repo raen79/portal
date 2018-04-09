@@ -8,6 +8,7 @@ export default class extends Controller {
   initialize() {
     this.base_url = `${host}/course_modules/${this.course_module_id}/courseworks/${this.coursework_id}/chatbot`;
     this.replaceWithPartial(this.conversationTarget, '/greet');
+    this._autoScrollConversation();
   }
   
   ask(event) {
@@ -43,6 +44,12 @@ export default class extends Controller {
         element.innerHTML = html;
         target.appendChild(element);
       });
+  }
+
+  _autoScrollConversation() {
+    let scroll = () => this.conversationTarget.scrollTop = this.conversationTarget.scrollHeight;
+    let mutationObserver = new MutationObserver(scroll);
+    mutationObserver.observe(this.conversationTarget, {childList: true});
   }
 
   replaceWithPartial(target, url) {

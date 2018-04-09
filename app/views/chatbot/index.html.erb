@@ -1,15 +1,18 @@
 <div 
+  id="chatbot_index"
   data-controller="chatbot"
   data-chatbot-course-module-id="<%= @course_module.id %>"
   data-chatbot-coursework-id="<%= @coursework.id %>"
-  data-chatbot-lecturer-id="<%= @lecturer_id %>"
->
-  <h1><%= @course_module.name %>: <%= @coursework.name %></h1>
-  <div data-target="chatbot.conversation"></div>
-  <br>
-  <b>Question: </b>
-  <form data-action="submit->chatbot#ask">
-    <input data-target="chatbot.question" />
-    <input type="submit" value="Ask!">
-  </form>
+  data-chatbot-lecturer-id="<%= @lecturer_id %>">
+    <h4>Chat</h4>
+    <div class="conversation" data-target="chatbot.conversation"></div>
+    <br>
+    <form data-action="submit->chatbot#ask" class="row valign-wrapper">
+      <div class="input-field col s10">
+        <input type="text" data-target="chatbot.question" />
+        <label>Question</label>
+      </div>
+
+      <input type="submit" class="btn waves-effect waves-light col s2" value="Ask!">
+    </form>
 </div>

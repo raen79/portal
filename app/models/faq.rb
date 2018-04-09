@@ -47,9 +47,9 @@ class Faq < ActiveResource::Base
         self.site.to_s + '/api/coursework/' + params['coursework_id'].to_s + '/find_answer',
         :query => params,
         :headers => {
-          'Authorization' => Thread.current['active.resource.currentthread.headers'],
+          'Authorization' => Thread.current['active.resource.currentthread.headers']['Authorization'],
           'Accept' => 'application/json'
-        },
+        }
       )
 
       JSON.parse(response.body)['answer'] if response.code == 200

@@ -14,7 +14,7 @@
           ) do |form|
         %>
           <td>
-            <h4><%= coursework.name %></h4>
+            <h5><%= coursework.name %></h5>
             <%= render 'edit_form_fields', :coursework => coursework, :form => form %>
           </td>
 
@@ -30,11 +30,12 @@
             <%= link_to('Submit Solution', 'javascript::', :class => 'btn waves-effect blue lighten-1 waves-light') %>
             
             <% if current_user.lecturer_id == coursework.lecturer.lecturer_id %>
+
               <%=
                 link_to(
                   'Manage FAQs',
                   course_module_coursework_chatbot_faqs_path(:course_module_id => coursework.course_module.id, :coursework_id => coursework.id),
-                  :class => 'btn waves-effect yellow darken-1 waves-light'
+                  :class => 'btn waves-effect yellow darken-1 waves-light manage-faqs'
                 )
               %>
 

@@ -12,9 +12,9 @@
           ) do |form|
         %>
           <td>
-            <h4>
+            <h5>
               <%= link_to course_module.name, course_module_courseworks_path(course_module) %>
-            </h4>
+            </h5>
 
             <%= render 'edit_form_fields', :course_module => course_module, :form => form %>
           </td>
