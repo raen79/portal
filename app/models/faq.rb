@@ -23,6 +23,14 @@ class Faq < ActiveResource::Base
     @updated_at.to_datetime unless @updated_at.blank?
   end
 
+  def coursework
+    @coursework ||= Coursework.find(coursework_id)
+  end
+  
+  def course_module
+    @course_module ||= CourseModule.find(module_id)
+  end
+
   def coursework=(coursework)
     @coursework = coursework
     @coursework_id = coursework.id

@@ -1,32 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div
+  id="faqs_index"
+  data-controller="faqs"
+  data-faqs-notice="<%= notice %>">
+    <h4>Frequently Asked Questions</h4>
 
-<h1>Faqs</h1>
+    <%= render 'table', :faqs => @faqs, :current_user => @current_user %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Question</th>
-      <th>Answer</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <br>
 
-  <tbody>
-    <% @faqs.each do |faq| %>
-      <tr>
-        <td><%= faq.question %></td>
-        <td><%= faq.answer %></td>
-        <td><%= link_to 'Edit', edit_course_module_coursework_chatbot_faq_path(:course_module_id => @course_module.id, :coursework_id => @coursework.id, :id => faq.id) %></td>
-        <td><%= button_to 'Destroy', course_module_coursework_chatbot_faq_path(:course_module_id => @course_module.id, :coursework_id => @coursework.id, :id => faq.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% if @current_user.lecturer_id == @course_module.lecturer.lecturer_id %>
+      <div class="fixed-action-btn">
+        <%=
+          link_to(
+            raw('<i class="material-icons">add</i>'),
+            '#new-modal',
+            :class => 'create-btn btn-floating btn-large waves-effect waves-light modal-trigger'
+          )
+        %>
+      </div>
+
+      <%= render 'form_modal', :modal_id => 'new-modal', :new_faq => @new_faq %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Faq', new_course_module_coursework_chatbot_faq_path(:course_module_id => @course_module.id, :coursework_id => @coursework.id) %>
-
-<br><br>
-
-<%= link_to 'Back', course_module_courseworks_path(:course_module => @course_module.id) %>
+</div>

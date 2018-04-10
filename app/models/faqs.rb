@@ -18,7 +18,7 @@ class Faqs
 
   def all
     begin
-      Faq.all(:params => { :coursework_id => @coursework.id })
+      Faq.all(:params => { :coursework_id => @coursework.id }).each { |faq| faq.coursework = @coursework }
     rescue
       []
     end

@@ -1,0 +1,34 @@
+<div id="<%= modal_id %>" data-target="faqs.modal" class="modal">
+  <%= form_for new_faq, :url => { :action => :create } do |form| %>
+    <div class="modal-content">
+      <div class="row">
+        <h4 class="col s12">New Frequently Asked Question</h4>
+
+        <% if new_faq.errors.any? %>
+          <ul data-target="faqs.newError" class="col s12">
+            <% new_faq.errors.full_messages.each do |message| %>
+              <li class="error-message"><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <div class="input-field col s12">
+          <%= form.label :question %>
+          <%= form.text_field :question, :id => :faq_question %>
+        </div>
+
+        <div class="input-field col s12">
+          <%= form.label :answer %>
+          <%= form.text_field :answer, :id => :faq_answer %>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%=
+        form.submit 'Create!',
+        :class => 'btn waves-effect waves-light'
+      %>
+      <a class="modal-action modal-close waves-effect waves-light red lighten-1 btn">Cancel</a>
+    </div>
+  <% end %>
+</div>

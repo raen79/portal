@@ -1,0 +1,92 @@
+<table class="highlight">
+  <thead>
+    <th><h5>Question</h5></th>
+    <th><h5>Answer</h5></th>
+    <th></th>
+  </thead>
+
+  <tbody>
+    <% faqs.each do |faq| %>
+      <tr>
+        <%=
+          form_for(
+            faq,
+            :method => :put,
+            :url => course_module_coursework_chatbot_faq_path(
+              :course_module_id => faq.course_module.id,
+              :coursework_id => faq.coursework.id,
+              :id => faq.id
+            ),
+            :data => {
+              :target => 'faqs.editForm',
+              'object-id' => faq.id
+            }
+          ) do |form|
+        %>
+          <td>
+            <span><%= faq.question %></span>
+            
+            <% if faq.errors.any? %>
+              <ul data-target="faqs.editError" data-object-id="<%= faq.id %>" class="hide">
+                <% faq.errors.full_messages.each do |message| %>
+                  <li class="error-message"><%= message %></li>
+                <% end %>
+              </ul>
+            <% end %>
+
+            <div
+              class="input-field hide"
+              data-target="faqs.question"
+              data-object-id="<%= faq.id %>">
+                <%= form.label :question %>
+                <%= form.text_field :question, :id => "faq_question_#{faq.id}" %>
+            </div>
+          </td>
+
+          <td>
+            <span><%= faq.answer %></span>
+            <div
+              class="input-field hide"
+              data-target="faqs.answer"
+              data-object-id="<%= faq.id %>">
+                <%= form.label :answer %>
+                <%= form.text_field :answer, :id => "faq_answer_#{faq.id}" %>
+            </div>
+          </td>
+
+          <td class="right-align">
+            <%=
+              link_to(
+                raw('<i class="material-icons">edit</i>'),
+                'javascript::',
+                :class => 'btn-floating btn-large waves-effect waves-light yellow darken-1',
+                :data => {
+                  :action => 'click->faqs#displayEditForm',
+                  'object-id' => faq.id
+                }
+              )
+            %>
+
+            <%=
+              link_to(
+                raw('<i class="material-icons">delete</i>'),
+                course_module_coursework_chatbot_faq_path(
+                  :course_module_id => faq.course_module.id,
+                  :coursework_id => faq.coursework.id,
+                  :id => faq.id
+                ),
+                :method => :delete,
+                :data => {
+                  :confirm => 'Are you sure?',
+                },
+                :class => 'btn-floating btn-large waves-effect waves-light red lighten-1'
+              )
+            %>
+
+            <%= render 'edit_form_submission', :faq => faq, :form => form %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

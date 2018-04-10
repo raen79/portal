@@ -1,0 +1,14 @@
+<%=
+  form.submit 'Update!',
+  :class => 'btn waves-effect waves-light yellow darken-1 hide',
+  :data => {
+    :target => 'faqs.updateButton',
+    'object-id' => faq.id,
+    :action => 'click->faqs#submitEditForm'
+  }
+%>
+
+<a
+  class="btn waves-effect waves-light red lighten-1 hide"
+  data-object-id="<%= faq.id %>"
+  data-action="click->faqs#hideEditForm">Cancel</a>

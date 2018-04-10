@@ -8,7 +8,7 @@
             :method => :put,
             :url => course_module_coursework_path(:course_module_id => coursework.course_module.id, :coursework_id => coursework.id),
             :data => {
-              :target => 'table.editForm',
+              :target => 'coursework.editForm',
               'object-id' => coursework.id
             }
           ) do |form|
@@ -45,7 +45,7 @@
                   'javascript::',
                   :class => 'btn-floating btn-large waves-effect waves-light yellow darken-1',
                   :data => {
-                    :action => 'click->table#displayEditForm',
+                    :action => 'click->coursework#displayEditForm',
                     'object-id' => coursework.id
                   }
                 )

@@ -40,7 +40,7 @@ class CourseModulesController < ApplicationController
         end
       end
 
-      @new_course_module = CourseModule.new(course_module_params)
+      @new_course_module = CourseModule.new
       @new_course_module.lecturer = current_user
 
       render :index

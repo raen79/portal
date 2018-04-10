@@ -6,7 +6,7 @@
           form_for(
             course_module,
             :data => {
-              :target => 'table.editForm',
+              :target => 'course-modules.editForm',
               'object-id' => course_module.id
             }
           ) do |form|
@@ -23,7 +23,7 @@
             <td class="right-align">
               <a
                 class="btn-floating btn-large waves-effect waves-light yellow darken-1"
-                data-action="click->table#displayEditForm"
+                data-action="click->course-modules#displayEditForm"
                 data-object-id="<%= course_module.id %>">
                   <i class="material-icons">edit</i>
               </a>

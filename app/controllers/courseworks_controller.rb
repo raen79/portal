@@ -8,7 +8,6 @@ class CourseworksController < ApplicationController
   def index
     @courseworks = @course_module.courseworks.order(:name => :asc)
     @current_user = current_user
-
     @new_coursework = @course_module.courseworks.new
   end
 
@@ -27,7 +26,7 @@ class CourseworksController < ApplicationController
     if @coursework.update(coursework_params)
       redirect_to course_module_courseworks_url(:course_module_id => @course_module.id), notice: 'Coursework was successfully updated.'
     else
-      @new_coursework = @course_module.courseworks.new(coursework_params)
+      @new_coursework = @course_module.courseworks.new
       
       @courseworks = @course_module.courseworks.order(:name => :asc).to_a
       @courseworks.map! do |coursework|

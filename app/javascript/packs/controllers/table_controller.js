@@ -1,10 +1,10 @@
 import { Controller } from 'stimulus'
 
-export default class extends Controller {
-  static targets = ['editError', 'newError', 'updateButton', 'name', 'modal', 'editForm'];
+export class TableController extends Controller {
+  static targets = ['editError', 'newError', 'updateButton', 'modal', 'editForm'];
 
   initialize() {
-    const notice = this.data.get("notice");
+    const notice = this.data.get('notice');
 
     M.Modal.init(this.modalTarget);
 
@@ -33,9 +33,11 @@ export default class extends Controller {
   toggleEditForm(formElement) {
     const objectId = this.getObjectId(formElement);
     const form = this.getEditForm(objectId);
-
-    form.updateButton.siblings.forEach(element => element.classList.toggle('hide'));
-    form.nameField.siblings.forEach(element => element.classList.toggle('hide'));
+    
+    Object.values(form).forEach(formElement => {
+      console.log(formElement.siblings);
+      formElement.siblings.forEach(element => element.classList.toggle('hide'));
+    });
   }
 
   hideEditForm(event) {
@@ -58,16 +60,26 @@ export default class extends Controller {
       return targets.find(element => this.getObjectId(element) == objectId);
     } 
 
-    const updateButton = findByModuleId(this.updateButtonTargets);
-    const nameField = findByModuleId(this.nameTargets);
-    
-    updateButton.siblings = siblings(updateButton.parentElement);
-    nameField.siblings = siblings(nameField);
+    let form = {};
 
-    return { updateButton: updateButton, nameField: nameField };
+    const updateButton = findByModuleId(this.updateButtonTargets);
+    updateButton.siblings = siblings(updateButton.parentElement);
+    form.updateButton = updateButton;
+
+    this.fieldTargets.forEach(fieldTarget => {
+      let field = findByModuleId(fieldTarget.targets);
+      field.siblings = siblings(field);
+      form[fieldTarget.name] = field;
+    });
+
+    return form;
   }
   
   getObjectId(element) {
     return element.dataset.objectId;
+  }
+
+  get fieldTargets() {
+    throw new Error('Getter fieldTargets() is not implemented!');
   }
 }

@@ -1,11 +1,11 @@
-<div id="<%= modal_id %>" data-target="table.modal" class="modal">
+<div id="<%= modal_id %>" data-target="coursework.modal" class="modal">
   <%= form_for new_coursework, :url => { :action => :create } do |form| %>
     <div class="modal-content">
       <div class="row">
         <h4 class="col s12">New Coursework</h4>
 
         <% if new_coursework.errors.any? %>
-          <ul data-target="table.newError" class="col s12">
+          <ul data-target="coursework.newError" class="col s12">
             <% new_coursework.errors.full_messages.each do |message| %>
               <li class="error-message"><%= message %></li>
             <% end %>

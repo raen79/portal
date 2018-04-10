@@ -1,5 +1,5 @@
 <% if course_module.errors.any? %>
-  <ul data-target="table.editError" data-object-id="<%= course_module.id %>" class="hide">
+  <ul data-target="course-modules.editError" data-object-id="<%= course_module.id %>" class="hide">
     <% course_module.errors.full_messages.each do |message| %>
       <li class="error-message"><%= message %></li>
     <% end %>
@@ -8,7 +8,7 @@
 
 <div
   class="input-field hide"
-  data-target="table.name"
+  data-target="course-modules.name"
   data-object-id="<%= course_module.id %>">
     <%= form.label :name %>
     <%= form.text_field :name, :id => "course_module_name_#{course_module.id}" %>
