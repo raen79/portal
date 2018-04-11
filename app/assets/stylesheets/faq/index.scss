@@ -1,0 +1,15 @@
+#faqs_index {
+  table {
+    width: 100%;
+
+    tr {
+      td {
+        width: 40%;
+      
+        &:last-child {
+          width: 20%;
+        }
+      }
+    }
+  }
+}

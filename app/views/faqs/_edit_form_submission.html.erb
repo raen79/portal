@@ -1,3 +1,11 @@
+<% if faq.errors.any? %>
+  <ul data-target="faqs.editError" data-object-id="<%= faq.id %>" class="hide">
+    <% faq.errors.full_messages.each do |message| %>
+      <li class="error-message"><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%=
   form.submit 'Update!',
   :class => 'btn waves-effect waves-light yellow darken-1 hide',

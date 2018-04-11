@@ -40,6 +40,7 @@ class FaqsController < ApplicationController
         if @faq.id == faq.id
           @faq.question = faq.question
           @faq.answer = faq.answer
+          @faq.coursework = faq.coursework
           @faq
         else
           faq

@@ -18,7 +18,9 @@ Rails.application.routes.draw do
           get '/greet', :to => 'chatbot#greet'
           get '/new_question', :to => 'chatbot#new_question'
           
-          resources :faqs, :except => [:show, :edit, :new]
+          resources :faqs, :except => [:show, :edit, :new] do
+            get '/', :to => 'faqs#index'
+          end
         end
       end
     end

@@ -15,7 +15,7 @@
             :url => course_module_coursework_chatbot_faq_path(
               :course_module_id => faq.course_module.id,
               :coursework_id => faq.coursework.id,
-              :id => faq.id
+              :faq_id => faq.id
             ),
             :data => {
               :target => 'faqs.editForm',
@@ -25,15 +25,6 @@
         %>
           <td>
             <span><%= faq.question %></span>
-            
-            <% if faq.errors.any? %>
-              <ul data-target="faqs.editError" data-object-id="<%= faq.id %>" class="hide">
-                <% faq.errors.full_messages.each do |message| %>
-                  <li class="error-message"><%= message %></li>
-                <% end %>
-              </ul>
-            <% end %>
-
             <div
               class="input-field hide"
               data-target="faqs.question"
@@ -73,7 +64,7 @@
                 course_module_coursework_chatbot_faq_path(
                   :course_module_id => faq.course_module.id,
                   :coursework_id => faq.coursework.id,
-                  :id => faq.id
+                  :faq_id => faq.id
                 ),
                 :method => :delete,
                 :data => {
