@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/', :to => 'course_modules#index', :as => :index
   get '/login', :to => 'auth#login_form'
+  get '/register', :to => 'auth#login_form'
+  post '/register', :to => 'auth#register'
   post '/login', :to => 'auth#login'
   delete '/logout', :to => 'auth#logout'
 

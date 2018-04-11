@@ -1,13 +1,66 @@
-<%= form_for :user, :method => :post, :url => :login  do |user| %>
-  <div class="input-field">
-    <%= user.text_field :email %>
-    <label>Email Address</label>
-  </div>
+<div data-controller="auth">
+  <section>
+    <h4>Login</h4>
+    <%= form_for :user, :namespace => :login, :method => :post, :url => :login do |user| %>
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= user.text_field :email %>
+          <label>Email Address</label>
+        </div>
 
-  <div class="input-field">
-    <%= user.password_field :password %>
-    <label>Password</label>
-  </div>
+        <div class="input-field col s12 l6">
+          <%= user.password_field :password %>
+          <label>Password</label>
+        </div>
 
-  <%= user.submit :class => 'waves-effect waves-light btn' %>
-<% end %>
+        <%= user.submit 'Login', :class => 'waves-effect waves-light btn col s2' %>
+      </div>
+    <% end %>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <h4>Signup</h4>
+    <%= form_for :user, :namespace => :register, :method => :post, :url => :register do |user| %>
+      <div class="row">
+        <label data-action="click->auth#toggleLecturer" class="col s12 l6">
+          <%= user.radio_button :lecturer, true, :checked => true, :data => { :target => "auth.lecturerToggle" } %>
+          <span>Lecturer</span>
+        </label>
+
+        <label data-action="click->auth#toggleLecturer" data-target="auth.studentToggle" class="col s12 l6">
+          <%= user.radio_button :lecturer, false %>
+          <span>Student</span>
+        </label>
+
+        <div class="input-field col s12 l6">
+          <%= user.text_field :lecturer_id, :data => { :target => "auth.lecturerField" } %>
+          <label>Lecturer ID</label>
+        </div>
+
+        <div class="input-field col s12 l6 hide">
+          <%= user.text_field :student_id, :data => { :target => "auth.studentField" } %>
+          <label>Student ID</label>
+        </div>
+
+        <div class="input-field col s12 l6">
+          <%= user.text_field :email %>
+          <label>Email Address</label>
+        </div>
+
+        <div class="input-field col s12 l6">
+          <%= user.password_field :password %>
+          <label>Password</label>
+        </div>
+
+        <div class="input-field col s12 l6">
+          <%= user.password_field :password_confirmation %>
+          <label>Password Confirmation</label>
+        </div>
+
+        <%= user.submit 'Signup', :class => 'waves-effect waves-light btn col s2' %>
+      </div>
+    <% end %>
+  </section>
+</div>

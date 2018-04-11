@@ -7,14 +7,14 @@ class CourseModulesController < ApplicationController
   end
 
   def index
-    @course_modules = current_user.course_modules.order(:name => :asc)
+    @course_modules = CourseModule.order(:name => :asc)
 
     @new_course_module = CourseModule.new
     @new_course_module.lecturer = current_user
   end
 
   def create
-    @course_modules = current_user.course_modules.order(:name => :asc)
+    @course_modules = CourseModule.order(:name => :asc)
 
     @new_course_module = CourseModule.new(course_module_params)
     @new_course_module.lecturer = current_user
