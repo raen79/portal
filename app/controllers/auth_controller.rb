@@ -3,20 +3,30 @@ class AuthController < ApplicationController
   before_action :set_breadcrumbs
   before_action :redirect_to_index, :only => [:login_form]
 
+  def initialize
+    super()
+    
+    @auth = Auth.new
+    @login_errors = []
+    @register_errors = []
+  end
+
   def login_form; end
 
   def login
-    session[:jwt] = Auth.new.login(login_params[:email], login_params[:password])
+    @auth.login(login_params[:email], login_params[:password])
 
-    if session[:jwt].blank?
+    if @auth.jwt.blank?
+      @login_errors = @auth.errors
       render :login_form
     else
+      session[:jwt] = @auth.jwt
       redirect_to :index
     end
   end
 
   def register
-    session[:jwt] = Auth.new.register(
+    @auth.register(
       :lecturer_id => register_params[:lecturer_id],
       :student_id => register_params[:student_id],
       :email => register_params[:email],
@@ -24,9 +34,11 @@ class AuthController < ApplicationController
       :password_confirmation => register_params[:password_confirmation]
     )
     
-    if session[:jwt].blank?
+    if @auth.jwt.blank?
+      @register_errors = @auth.errors
       render :login_form
     else
+      session[:jwt] = @auth.jwt
       redirect_to :index
     end
   end

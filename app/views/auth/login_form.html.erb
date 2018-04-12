@@ -1,6 +1,13 @@
 <div data-controller="auth">
   <section>
     <h4>Login</h4>
+
+    <% if @login_errors.any? %>
+      <% @login_errors.each do |error_message| %>
+        <li class="error-message"><%= error_message.capitalize %></li>
+      <% end %>
+    <% end %>
+
     <%= form_for :user, :namespace => :login, :method => :post, :url => :login do |user| %>
       <div class="row">
         <div class="input-field col s12 l6">
@@ -22,6 +29,19 @@
 
   <section>
     <h4>Signup</h4>
+    
+    <% if @register_errors.any? %>
+      <% @register_errors.each do |field_name, error_messages| %>
+        <% error_messages.each do |error_message| %>
+          <li class="error-message">
+            <%= field_name.capitalize %> <%= error_message %>
+          </li>
+        <% end %>
+      <% end %>
+
+      <br>
+    <% end %>
+
     <%= form_for :user, :namespace => :register, :method => :post, :url => :register do |user| %>
       <div class="row">
         <label data-action="click->auth#toggleLecturer" class="col s12 l6">

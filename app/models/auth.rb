@@ -2,6 +2,8 @@ class Auth
   include HTTParty
   base_uri ENV['AUTH_URL'] + '/api/authentication'
 
+  attr_accessor :jwt
+
   def verify_token(jwt)
     @options = {
       :body => {
@@ -32,9 +34,11 @@ class Auth
 
     response = self.class.post('/login', @options)
     if response.code == 200
-      JSON.parse(response.body)['jwt']
+      @jwt = JSON.parse(response.body)['jwt']
+      @errors = nil
     else
-      nil
+      @jwt = nil
+      @errors = [JSON.parse(response.body)['error']]
     end
   end
 
@@ -54,10 +58,16 @@ class Auth
 
     response = self.class.post('/register', @options)
     
-    if response.code == 201
-      JSON.parse(response.body)['jwt']
+    if response.code == 200
+      @jwt = JSON.parse(response.body)['jwt']
+      @errors = []
     else
-      nil
+      @jwt = nil
+      @errors = JSON.parse(response.body)['errors']
     end
+  end
+
+  def errors
+    @errors ||= []
   end
 end
