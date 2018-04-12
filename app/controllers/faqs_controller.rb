@@ -13,15 +13,15 @@ class FaqsController < ApplicationController
 
   def create
     @faqs = @coursework.faqs.all
-    @faq = @coursework.faqs.new(faq_params)
-    @new_faq = @coursework.faqs.new
+    @new_faq = @coursework.faqs.new(faq_params)
     
-    if @faq.save
+    if @new_faq.save
       redirect_to(
         course_module_coursework_chatbot_faqs_url(:course_module_id => @course_module.id, :coursework_id => @coursework.id),
         :notice => 'Faq was successfully created.'
       )
     else
+      binding.pry
       render :index
     end
   end
