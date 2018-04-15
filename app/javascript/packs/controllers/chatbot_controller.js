@@ -36,14 +36,13 @@ export default class extends Controller {
     return this.data.get('lecturer-id');
   }
 
-  appendPartial(target, url) {
-    fetch(this.base_url + url, { credentials: 'same-origin' })
-      .then(response => response.text())
-      .then(html => {
-        const element = document.createElement('div');
-        element.innerHTML = html;
-        target.appendChild(element);
-      });
+  async appendPartial(target, url) {
+    let response = await fetch(this.base_url + url, { credentials: 'same-origin' });
+    let html = await response.text();
+    const element = document.createElement('div');
+
+    element.innerHTML = html;
+    target.appendChild(element);
   }
 
   _autoScrollConversation() {
@@ -52,9 +51,10 @@ export default class extends Controller {
     mutationObserver.observe(this.conversationTarget, {childList: true});
   }
 
-  replaceWithPartial(target, url) {
-    fetch(this.base_url + url, { credentials: 'same-origin' })
-      .then(response => response.text())
-      .then(html => target.innerHTML = html);
+  async replaceWithPartial(target, url) {
+    let response = await fetch(this.base_url + url, { credentials: 'same-origin' });
+    let html = await Zresponse.text();
+    
+    target.innerHTML = html;
   }
 }
