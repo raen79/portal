@@ -53,7 +53,7 @@ export default class extends Controller {
 
   async replaceWithPartial(target, url) {
     let response = await fetch(this.base_url + url, { credentials: 'same-origin' });
-    let html = await Zresponse.text();
+    let html = await response.text();
     
     target.innerHTML = html;
   }
