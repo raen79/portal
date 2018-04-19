@@ -21,7 +21,6 @@ class FaqsController < ApplicationController
         :notice => 'Faq was successfully created.'
       )
     else
-      binding.pry
       render :index
     end
   end
