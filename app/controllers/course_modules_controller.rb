@@ -20,7 +20,7 @@ class CourseModulesController < ApplicationController
     @new_course_module.lecturer = current_user
 
     if @new_course_module.save
-      redirect_to course_modules_url, notice: 'Course module was successfully created.'
+      redirect_to course_modules_url, notice: 'Module was successfully created.'
     else
       render :index
     end
@@ -28,7 +28,7 @@ class CourseModulesController < ApplicationController
 
   def update
     if @course_module.update(course_module_params)
-      redirect_to course_modules_url, notice: 'Course module was successfully updated.'
+      redirect_to course_modules_url, notice: 'Module was successfully updated.'
     else
       @course_modules = current_user.course_modules.order(:name => :asc).to_a
       @course_modules.map! do |course_module|
@@ -49,7 +49,7 @@ class CourseModulesController < ApplicationController
 
   def destroy
     @course_module.destroy
-    redirect_to course_modules_url, notice: 'Course module was successfully destroyed.'
+    redirect_to course_modules_url, notice: 'Module was successfully destroyed.'
   end
 
   private
@@ -59,7 +59,7 @@ class CourseModulesController < ApplicationController
 
     def set_breadcrumbs
       @breadcrumbs = [
-        { :name => 'Course Modules', :url => course_modules_path }
+        { :name => 'Modules', :url => course_modules_path }
       ]
     end
 

@@ -58,7 +58,7 @@ class CourseworksController < ApplicationController
 
     def set_breadcrumbs
       @breadcrumbs = [
-        { :name => 'Course Modules', :url => course_modules_path },
+        { :name => 'Modules', :url => course_modules_path },
         { :name => @course_module.name, :url => course_module_courseworks_path(:course_module_id => @course_module.id) }
       ]
     end
