@@ -57,8 +57,8 @@ class Auth
     @options[:body]['user']['lecturer_id'] = lecturer_id unless lecturer_id.blank?
 
     response = self.class.post('/register', @options)
-    
-    if response.code == 200
+
+    if response.code == 201
       @jwt = JSON.parse(response.body)['jwt']
       @errors = []
     else

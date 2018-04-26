@@ -33,7 +33,7 @@ class AuthController < ApplicationController
       :password => register_params[:password],
       :password_confirmation => register_params[:password_confirmation]
     )
-    
+
     if @auth.jwt.blank?
       @register_errors = @auth.errors
       render :login_form
