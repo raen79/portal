@@ -42,6 +42,8 @@
 
               <%= render 'edit_form_submission', :course_module => course_module, :form => form %>
             </td>
+          <% elsif !current_user.lecturer_id.blank? %>
+            <td></td>
           <% end %>
         <% end %>
       </tr>

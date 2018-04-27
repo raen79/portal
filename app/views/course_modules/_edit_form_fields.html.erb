@@ -1,5 +1,5 @@
 <% if course_module.errors.any? %>
-  <ul data-target="course-modules.editError" data-object-id="<%= course_module.id %>" class="hide">
+  <ul data-target="course-modules.editError" data-object-id="<%= course_module.id %>" class="errors hide">
     <% course_module.errors.full_messages.each do |message| %>
       <li class="error-message"><%= message %></li>
     <% end %>

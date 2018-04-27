@@ -5,7 +5,7 @@
         <h4 class="col s12">New Module</h4>
 
         <% if new_course_module.errors.any? %>
-          <ul data-target="course-modules.newError" class="col s12">
+          <ul data-target="course-modules.newError" class="col s12 errors">
             <% new_course_module.errors.full_messages.each do |message| %>
               <li class="error-message"><%= message %></li>
             <% end %>

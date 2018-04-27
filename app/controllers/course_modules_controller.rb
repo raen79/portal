@@ -30,7 +30,7 @@ class CourseModulesController < ApplicationController
     if @course_module.update(course_module_params)
       redirect_to course_modules_url, notice: 'Module was successfully updated.'
     else
-      @course_modules = current_user.course_modules.order(:name => :asc).to_a
+      @course_modules = CourseModule.order(:name => :asc).to_a
       @course_modules.map! do |course_module|
         if course_module.id == @course_module.id
           @course_module.name = course_module.name
