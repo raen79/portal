@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'jwt'
 gem 'httparty'
+gem 'rest-client'
 gem 'activeresource', require: 'active_resource'
 
 group :development, :test do

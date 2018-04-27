@@ -24,3 +24,6 @@ yarn-debug.log*
 .yarn-integrity
 
 .env
+
+test.py
+test.pdf
