@@ -1,0 +1,12 @@
+<h4>Marked Code Solution</h4>
+
+<% if @marked_solution.include?('errors') %>
+  <ul class="errors">
+    <% @marked_solution['errors'].each do |key, message| %>
+      <li class="error-message"><%= key.capitalize %> <%= message %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <h5><%= link_to 'PDF Report', @marked_solution['pdf_url'] %></h5>
+  <h5><%= link_to 'TXT Report', @marked_solution['txt_url'] %></h5>
+<% end %>

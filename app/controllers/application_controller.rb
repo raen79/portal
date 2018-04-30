@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery :with => :exception
   before_action :refresh_token, :set_auth_header
 
   def current_user
@@ -11,6 +11,14 @@ class ApplicationController < ActionController::Base
       redirect_to :back unless current_user.lecturer?
     else
       redirect_to :back unless current_user.lecturer_id == lecturer_id
+    end
+  end
+
+  def restrict_to_students(student_id = nil)
+    if student_id.blank?
+      redirect_to :back unless current_user.student?
+    else
+      redirect_to :back unless current_user.student_id == student_id
     end
   end
 

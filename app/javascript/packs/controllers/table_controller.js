@@ -35,7 +35,6 @@ export class TableController extends Controller {
     const form = this.getEditForm(objectId);
     
     Object.values(form).forEach(formElement => {
-      console.log(formElement.siblings);
       formElement.siblings.forEach(element => element.classList.toggle('hide'));
     });
   }

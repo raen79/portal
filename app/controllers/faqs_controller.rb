@@ -76,7 +76,7 @@ class FaqsController < ApplicationController
         { :name => 'Modules', :url => course_modules_path },
         { :name => @course_module.name, :url => course_module_courseworks_path(:course_module_id => @course_module.id) },
         {
-          :name => @coursework.name,
+          :name => "#{@coursework.name} FAQs",
           :url => course_module_coursework_chatbot_faqs_path(:course_module_id => @course_module.id, :coursework_id => @coursework.id)
         }
       ]

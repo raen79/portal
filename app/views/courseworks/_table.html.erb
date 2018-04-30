@@ -27,9 +27,28 @@
               )
             %>
 
-            <%= link_to('Submit Solution', 'javascript::', :class => 'btn waves-effect blue lighten-1 waves-light') %>
+            <%= render 'table_dropdown', :coursework => coursework %>
             
             <% if current_user.lecturer_id == coursework.lecturer.lecturer_id %>
+              <input
+                type="file"
+                class="hide"
+                name="solution"
+                data-action="change->coursework#uploadTests"
+                data-target="coursework.testsFile"
+                data-id="<%= coursework.id %>"
+                data-url="<%= 
+                  course_module_coursework_submit_code_tests_path(
+                    :course_module_id => coursework.course_module.id,
+                    :coursework_id => coursework.id
+                  )
+                %>" />
+              <a
+                class="btn waves-effect yellow darken-1 waves-light"
+                data-action="click->coursework#submitTests"
+                data-id="<%= coursework.id %>">
+                Submit Tests
+              </a>
 
               <%=
                 link_to(

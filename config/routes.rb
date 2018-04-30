@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     
     resources :courseworks, :except => [:show, :edit, :new] do
       get '/', :to => 'courseworks#index'
+      post '/submit_code_solution', :to => 'marking#submit_code_solution'
+      post '/submit_code_tests', :to => 'marking#submit_code_tests'
+      post '/submit_textual_solution', :to => 'marking#submit_textual_solution'
+      get '/marked_code', :to => 'marking#marked_code'
+      get '/marked_text', :to => 'marking#marked_text'
 
       nested do
         scope 'chatbot', :as => 'chatbot' do

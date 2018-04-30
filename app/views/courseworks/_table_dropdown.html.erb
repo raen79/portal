@@ -1,0 +1,68 @@
+<a class="dropdown-trigger btn waves-effect blue lighten-1 waves-light" data-target="dropdown<%= coursework.id %>">Submission</a>
+
+<ul id="dropdown<%= coursework.id %>" class="dropdown-content">
+  <input
+    type="file"
+    class="hide"
+    name="solution"
+    data-action="change->coursework#uploadTextualFile"
+    data-target="coursework.textualFile"
+    data-id="<%= coursework.id %>"
+    data-url="<%= 
+      course_module_coursework_submit_textual_solution_path(
+        :course_module_id => coursework.course_module.id,
+        :coursework_id => coursework.id
+      )
+    %>" />
+  <li class="blue">
+    <a class="white-text" data-action="click->coursework#submitTextualFile" data-id="<%= coursework.id %>">
+      Submit Textual Solution
+    </a>
+  </li>
+
+  <% if code_tests_present?(coursework) %>
+    <input
+      type="file"
+      class="hide"
+      name="solution"
+      data-action="change->coursework#uploadCodeFile"
+      data-target="coursework.codeFile"
+      data-id="<%= coursework.id %>"
+      data-url="<%= 
+        course_module_coursework_submit_code_solution_path(
+          :course_module_id => coursework.course_module.id,
+          :coursework_id => coursework.id
+      ) %>" />
+    <li class="blue">
+      <a class="white-text" data-action="click->coursework#submitCodeFile" data-id="<%= coursework.id %>">
+        Submit Code Solution
+      </a>
+    </li>
+  <% end %>
+
+  <li class="divider" tabindex="-1"></li>
+
+  <% if textual_solution_available?(coursework) %>
+    <li class="blue">
+      <%=
+        link_to(
+          'View Textual Solution Result',
+          course_module_coursework_marked_text_path(:coursework_id => coursework.id, :course_module_id => coursework.course_module.id),
+          :class => 'white-text'
+        )
+      %>
+    </li>
+  <% end %>
+
+  <% if code_solution_available?(coursework) %>
+    <li class="blue">
+      <%=
+        link_to(
+          'View Code Solution Result',
+          course_module_coursework_marked_code_path(:coursework_id => coursework.id, :course_module_id => coursework.course_module.id),
+          :class => 'white-text'
+        )
+      %>
+    </li>
+  <% end %>
+</ul>

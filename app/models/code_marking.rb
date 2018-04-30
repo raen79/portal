@@ -1,11 +1,11 @@
 class CodeMarking
   @@base_url = ENV['CODE_MARKING_URL']
 
-  def initialize(module_id:, coursework_id:, lecturer_id:, student_id: nil)
-    @module_id = module_id
-    @coursework_id = coursework_id
-    @lecturer_id = lecturer_id
-    @student_id = student_id
+  def initialize(coursework:, student: nil)
+    @module_id = coursework.course_module.id
+    @coursework_id = coursework.id
+    @lecturer_id = coursework.lecturer.lecturer_id
+    @student_id = student.student_id unless student.blank?
   end
 
   def has_tests?
