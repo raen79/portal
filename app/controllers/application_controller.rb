@@ -24,7 +24,9 @@ class ApplicationController < ActionController::Base
 
   private
     def refresh_token
-      session[:jwt] = Auth.new.verify_token(session[:jwt])
+      jwt = request.headers['Authorization'] || session[:jwt]
+
+      session[:jwt] = Auth.new.verify_token(jwt)
 
       if session[:jwt].blank?
         redirect_to :login
