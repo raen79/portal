@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_jwt
+    session[:jwt] || request.headers['Authorization']
+  end
+
   private
     def refresh_token
       jwt = request.headers['Authorization'] || session[:jwt]

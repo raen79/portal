@@ -1,21 +1,22 @@
 class CodeMarking
   @@base_url = ENV['CODE_MARKING_URL']
 
-  def initialize(coursework:, student: nil)
+  def initialize(coursework:, student: nil, jwt:)
     @module_id = coursework.course_module.id
     @coursework_id = coursework.id
     @lecturer_id = coursework.lecturer.lecturer_id
     @student_id = student.student_id unless student.blank?
+    @jwt = jwt
   end
 
   def has_tests?
-    response = RestClient.get "#{@@base_url}/has_tests", :params => query_params
+    response = RestClient.get "#{@@base_url}/has_tests", :params => query_params, :headers => {'Authorization' => @jwt}
     JSON.parse(response.body)['has_tests']
   end
 
   def submit_solution(file)
     begin
-      RestClient.post "#{@@base_url}/solution", post_body(file)
+      RestClient.post "#{@@base_url}/solution", post_body(file), :headers => {'Authorization' => @jwt}
       {}
     rescue RestClient::ExceptionWithResponse => e
       { 'errors' => JSON.parse(e.response.body)['errors'] }
@@ -24,7 +25,7 @@ class CodeMarking
 
   def get_marked_solution
     begin
-      response = RestClient.get "#{@@base_url}/solution", :params => query_params
+      response = RestClient.get "#{@@base_url}/solution", :params => query_params, :headers => {'Authorization' => @jwt}
       parsed_response = JSON.parse(response)
 
       {
@@ -53,7 +54,7 @@ class CodeMarking
 
   def submit_tests(file)
     begin
-      RestClient.post "#{@@base_url}/tests", post_body(file)
+      RestClient.post "#{@@base_url}/tests", post_body(file), :headers => {'Authorization' => @jwt}
       {}
     rescue RestClient::ExceptionWithResponse => e
       { 'errors' => JSON.parse(e.response.body)['errors'] }

@@ -17,17 +17,19 @@ class Coursework < ApplicationRecord
     )
   end
 
-  def textual_marker(student: nil)
+  def textual_marker(student: nil, jwt:)
     @textual_marker ||= TextualMarking.new(
       :coursework => self,
-      :student => student
+      :student => student,
+      :jwt => jwt
     )
   end
 
-  def code_marker(student: nil)
+  def code_marker(student: nil, jwt:)
     @code_marker ||= CodeMarking.new(
       :coursework => self,
-      :student => student
+      :student => student,
+      :jwt => jwt
     )
   end
 end

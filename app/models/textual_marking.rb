@@ -1,16 +1,17 @@
 class TextualMarking
   @@base_url = ENV['TEXTUAL_MARKING_URL']
 
-  def initialize(coursework:, student: nil)
+  def initialize(coursework:, student: nil, jwt:)
     @module_id = coursework.course_module.id
     @coursework_id = coursework.id
     @lecturer_id = coursework.lecturer.lecturer_id
     @student_id = student.student_id unless student.blank?
+    @jwt = jwt
   end
 
   def submit_solution(file)
     begin
-      RestClient.post "#{@@base_url}/", post_body(file)
+      RestClient.post "#{@@base_url}/", post_body(file), :headers => {'Authorization' => @jwt}
       {}
     rescue RestClient::ExceptionWithResponse => e
       { 'errors' => JSON.parse(e.response.body)['errors'] }
@@ -19,7 +20,7 @@ class TextualMarking
 
   def get_marked_solution
     begin
-      response = RestClient.get "#{@@base_url}/get_info", :params => query_params
+      response = RestClient.get "#{@@base_url}/get_info", :params => query_params, :headers => {'Authorization' => @jwt}
       parsed_response = JSON.parse(response)
 
       { 'score' => parsed_response['score'] }

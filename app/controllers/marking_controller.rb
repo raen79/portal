@@ -6,7 +6,7 @@ class MarkingController < ApplicationController
   end
 
   def submit_textual_solution
-    response = @coursework.textual_marker(:student => @current_user).submit_solution(file_params)
+    response = @coursework.textual_marker(:student => @current_user, :jwt => get_jwt).submit_solution(file_params)
 
     if response.include?('errors')
       errors = response['errors']
@@ -22,7 +22,7 @@ class MarkingController < ApplicationController
   end
 
   def submit_code_solution
-    response = @coursework.code_marker(:student => @current_user).submit_solution(file_params)
+    response = @coursework.code_marker(:student => @current_user, :jwt => get_jwt).submit_solution(file_params)
 
     if response.include?('errors')
       errors = response['errors']
@@ -38,7 +38,7 @@ class MarkingController < ApplicationController
   end
 
   def submit_code_tests
-    response = @coursework.code_marker.submit_tests(file_params)
+    response = @coursework.code_marker(:jwt => get_jwt).submit_tests(file_params)
 
     if response.include?('errors')
       errors = response['errors']
@@ -54,11 +54,11 @@ class MarkingController < ApplicationController
   end
 
   def marked_code
-    @marked_solution = @coursework.code_marker(:student => current_user).get_marked_solution
+    @marked_solution = @coursework.code_marker(:student => current_user, :jwt => get_jwt).get_marked_solution
   end
 
   def marked_text
-    @marked_solution = @coursework.textual_marker(:student => current_user).get_marked_solution
+    @marked_solution = @coursework.textual_marker(:student => current_user, :jwt => get_jwt).get_marked_solution
   end
 
   private
