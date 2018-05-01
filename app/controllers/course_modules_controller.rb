@@ -1,8 +1,8 @@
 class CourseModulesController < ApplicationController
   before_action :set_breadcrumbs
-  before_action :set_course_module, :only => [:edit, :update, :destroy]
+  before_action :set_course_module, :only => [:show, :update, :destroy]
   before_action :restrict_to_lecturer, :only => [:create]
-  before_action :only => [:edit, :update, :destroy] do
+  before_action :only => [:update, :destroy] do
     restrict_to_lecturer(@course_module.lecturer.lecturer_id)
   end
 
@@ -11,6 +11,9 @@ class CourseModulesController < ApplicationController
 
     @new_course_module = CourseModule.new
     @new_course_module.lecturer = current_user
+  end
+
+  def show
   end
 
   def create
@@ -54,7 +57,11 @@ class CourseModulesController < ApplicationController
 
   private
     def set_course_module
-      @course_module = current_user.course_modules.find(params[:id])
+      if params[:id].blank?
+        @course_module = current_user.course_modules.find(params[:course_module_id])
+      elsif params[:course_module_id].blank?
+        @course_module = current_user.course_modules.find(params[:id])
+      end
     end
 
     def set_breadcrumbs

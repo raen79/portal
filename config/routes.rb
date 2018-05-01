@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   post '/login', :to => 'auth#login'
   delete '/logout', :to => 'auth#logout'
 
-  resources :course_modules, :except => [:show, :edit, :new] do
+  resources :course_modules, :except => [:edit, :new] do
     get '/', :to  => 'course_modules#index'
+    get '/details', :to => 'course_modules#show', :as => :show
     
     resources :courseworks, :except => [:show, :edit, :new] do
       get '/', :to => 'courseworks#index'
