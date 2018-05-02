@@ -6,24 +6,30 @@ class TextualMarking
     @coursework_id = coursework.id
     @lecturer_id = coursework.lecturer.lecturer_id
     @student_id = student.student_id unless student.blank?
-    @jwt = jwt
+    @jwt = "Bearer #{jwt}"
   end
 
   def submit_solution(file)
     begin
-      RestClient.post "#{@@base_url}/", post_body(file), :headers => {'Authorization' => @jwt}
+      RestClient.post "#{@@base_url}/", post_body(file), { :Authorization => @jwt }
       {}
     rescue RestClient::ExceptionWithResponse => e
       { 'errors' => JSON.parse(e.response.body)['errors'] }
+    rescue
+      { 'errors' => { 'server' => ['error, try again later.'] } }
     end
   end
 
   def get_marked_solution
     begin
-      response = RestClient.get "#{@@base_url}/get_info", :params => query_params, :headers => {'Authorization' => @jwt}
+      response = RestClient.get "#{@@base_url}/get_info", { :Authorization => @jwt, :params => query_params }
       parsed_response = JSON.parse(response)
 
-      { 'score' => parsed_response['score'] }
+      {
+        'score' => parsed_response['score'],
+        'pdf_url' => parsed_response['pdf_url'],
+        'checkedpdf_url' => parsed_response['checkedpdf_url']
+      }
     rescue RestClient::ExceptionWithResponse => e
       case e.response.code
       when 404
@@ -41,6 +47,8 @@ class TextualMarking
       else
         { 'errors' => JSON.parse(e.response.body)['errors'] }
       end
+    rescue
+      { 'errors' => { 'server' => ['error, try again later.'] } }
     end
   end
 
