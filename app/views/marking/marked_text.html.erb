@@ -28,7 +28,7 @@
 
   <p>
     Accordingly, it is likely that your work includes 
-    <% case @marked_solution['score'] %>
+    <% case @marked_solution['score'].to_i %>
     <% when 0..15 %>
       <b>no plagiarised content.</b>
     <% when 15..35 %>
