@@ -4,8 +4,8 @@ import { TableController } from './table_controller'
 export default class extends TableController {
   static targets = [...TableController.targets, ...['name', 'textualFile', 'codeFile', 'testsFile']];
 
-  constructor() {
-    super();
+  initialize() {
+    super.initialize();
 
     document.querySelectorAll('.dropdown-trigger').forEach(elem => {
       M.Dropdown.init(elem, {});

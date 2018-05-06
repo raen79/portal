@@ -20,5 +20,7 @@
       </div>
 
       <%= render 'form_modal', :modal_id => 'new-modal', :new_coursework => @new_coursework %>
+    <% else %>
+      <div data-target="coursework.modal"></div>
     <% end %>
 </div>
