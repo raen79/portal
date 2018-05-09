@@ -8,15 +8,6 @@ class Coursework < ApplicationRecord
     Faqs.new(:coursework => self)
   end
 
-  def code_marker(student:)
-    @code_marker ||= CodeMarking.new(
-      :coursework => self,
-      :module => course_module,
-      :lecturer => lecturer,
-      :student => student
-    )
-  end
-
   def textual_marker(student: nil, jwt:)
     @textual_marker ||= TextualMarking.new(
       :coursework => self,

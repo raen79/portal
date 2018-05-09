@@ -14,7 +14,7 @@ class CodeMarking
       response = RestClient.get "#{@@base_url}/has_tests", { :Authorization => @jwt, :params => query_params }
       JSON.parse(response.body)['has_tests']
     rescue
-      { 'has_tests?' => false }
+      false
     end
   end
 
